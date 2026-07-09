@@ -1,0 +1,41 @@
+<p class="text-red-600 font-bold">
+Total empleados: {{ empleados.length }}
+</p>
+
+<div>
+
+@for(emp of empleados; track emp.id){
+
+<div class="border rounded-lg p-4 mb-3 shadow">
+
+<h2 class="text-xl font-bold">
+{{emp.nombre}}
+</h2>
+
+
+<p>
+Puesto: {{emp.puesto}}
+</p>
+
+
+<p>
+Salario: {{emp.salario}}
+</p>
+
+
+<p>
+Estado:
+@if(emp.activo){
+Activo
+}
+@else {
+Inactivo
+}
+</p>
+
+
+</div>
+
+}
+
+</div>
