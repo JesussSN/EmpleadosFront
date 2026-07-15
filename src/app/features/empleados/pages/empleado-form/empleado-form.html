@@ -1,1 +1,167 @@
-<p>empleado-form works!</p>
+<div class="bg-white rounded-2xl shadow-lg">
+
+    <!-- Encabezado -->
+    <div class="border-b border-gray-200 px-8 py-6">
+
+        <h2 class="text-3xl font-bold text-slate-800">
+            Nuevo Empleado
+        </h2>
+
+        <p class="text-slate-500 mt-2">
+            Captura la información del nuevo colaborador.
+        </p>
+
+    </div>
+
+    <!-- Formulario -->
+    <form
+        [formGroup]="empleadoForm"
+        (ngSubmit)="guardar()"
+        class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Nombre -->
+        <div>
+
+            <label class="font-semibold text-slate-700">
+                Nombre(s)
+            </label>
+
+            <input
+                type="text"
+                formControlName="nombre"
+                class="w-full mt-2 border rounded-lg p-3 focus:ring-2 focus:ring-red-600 outline-none">
+
+            @if (empleadoForm.get('nombre')?.invalid &&
+            empleadoForm.get('nombre')?.touched) {
+
+                <p class="text-red-600 text-sm mt-1">
+                    El nombre es obligatorio.
+                </p>
+
+            }
+
+        </div>
+
+        <!-- Apellido paterno -->
+        <div>
+
+            <label class="font-semibold text-slate-700">
+                Apellido paterno
+            </label>
+
+            <input
+                type="text"
+                formControlName="apellidoPaterno"
+                class="w-full mt-2 border rounded-lg p-3">
+
+        </div>
+
+        <!-- Apellido materno -->
+        <div>
+
+            <label class="font-semibold text-slate-700">
+                Apellido materno
+            </label>
+
+            <input
+                type="text"
+                formControlName="apellidoMaterno"
+                class="w-full mt-2 border rounded-lg p-3">
+
+        </div>
+
+        <!-- Correo -->
+        <div>
+
+            <label class="font-semibold text-slate-700">
+                Correo electrónico
+            </label>
+
+            <input
+                type="email"
+                formControlName="correo"
+                class="w-full mt-2 border rounded-lg p-3">
+
+        </div>
+
+        <!-- Teléfono -->
+        <div>
+
+            <label class="font-semibold text-slate-700">
+                Teléfono
+            </label>
+
+            <input
+                type="text"
+                formControlName="telefono"
+                class="w-full mt-2 border rounded-lg p-3">
+
+        </div>
+
+        <!-- Puesto -->
+        <div>
+
+            <label class="font-semibold text-slate-700">
+                Puesto
+            </label>
+
+            <input
+                type="text"
+                formControlName="puesto"
+                class="w-full mt-2 border rounded-lg p-3">
+
+        </div>
+
+        <!-- Salario -->
+        <div>
+
+            <label class="font-semibold text-slate-700">
+                Salario
+            </label>
+
+            <input
+                type="number"
+                formControlName="salario"
+                class="w-full mt-2 border rounded-lg p-3">
+
+        </div>
+
+        <!-- Fecha -->
+        <div>
+
+            <label class="font-semibold text-slate-700">
+                Fecha de ingreso
+            </label>
+
+            <input
+                type="date"
+                formControlName="fechaIngreso"
+                class="w-full mt-2 border rounded-lg p-3">
+
+        </div>
+
+        <!-- Botones -->
+        <div class="md:col-span-2 flex justify-end gap-4 mt-4">
+
+            <button
+                type="reset"
+                class="px-6 py-3 border rounded-lg hover:bg-gray-100">
+
+                Cancelar
+
+            </button>
+
+            <button
+                type="submit"
+                [disabled]="empleadoForm.invalid"
+                class="px-8 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:bg-gray-400">
+
+                Guardar empleado
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
