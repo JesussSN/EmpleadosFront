@@ -17,45 +17,26 @@ import { EmpleadoTableComponent } from '../../components/empleado-table/empleado
 })
 export class EmpleadosListComponent implements OnInit {
 
-
   private empleadoService = inject(EmpleadoService);
-
-
   empleados:Empleado[] = [];
-
 
   ngOnInit(): void {
     this.cargarEmpleados();
-
   }
 
-
-
   cargarEmpleados(){
-
     this.empleadoService.listar()
     .subscribe({
-
       next:(respuesta)=>{
-
         this.empleados = respuesta;
-
-        console.log(this.empleados);
-
       },
-
       error:(error)=>{
-
         console.error(
           "Error consultando empleados",
           error
         );
-
       }
-
     });
-
   }
-
 
 }

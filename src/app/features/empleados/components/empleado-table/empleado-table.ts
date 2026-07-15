@@ -18,8 +18,6 @@ empleados:Empleado[]=[];
 
     ngOnChanges(changes: SimpleChanges): void {
 
-    console.log('Cambio en empleados:', this.empleados);
-
   }
 
 

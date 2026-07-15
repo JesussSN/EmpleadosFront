@@ -1,0 +1,46 @@
+<div class="relative h-[420px] rounded-2xl overflow-hidden shadow-xl">
+
+    <img
+        [src]="slides[indice].imagen"
+        class="w-full h-full object-cover transition duration-700">
+
+    <div class="absolute inset-0 bg-black/45"></div>
+
+
+    <div class="absolute inset-0 flex flex-col justify-center px-16 text-white">
+
+        <h2 class="text-5xl font-bold max-w-xl">
+            {{slides[indice].titulo}}
+        </h2>
+
+        <p class="mt-5 text-xl max-w-xl">
+            {{slides[indice].descripcion}}
+        </p>
+
+        <button
+            class="mt-8 w-44 bg-red-600 hover:bg-red-700 transition py-3 rounded-lg font-semibold">
+
+            {{slides[indice].boton}}
+
+        </button>
+
+    </div>
+
+
+    <!-- indicadores -->
+    <div class="absolute bottom-5 left-0 right-0 flex justify-center gap-3">
+
+        @for(slide of slides; track $index){
+
+            <button
+                (click)="cambiarSlide($index)"
+                class="w-3 h-3 rounded-full bg-white">
+
+            </button>
+
+        }
+
+    </div>
+
+
+</div>
