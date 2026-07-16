@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 
 import { EmpleadoService } from '../../services/empleado.service';
 
@@ -23,11 +23,14 @@ export class EmpleadosListComponent implements OnInit {
   ngOnInit(): void {
     this.cargarEmpleados();
   }
+private cdr = inject(ChangeDetectorRef);
 
   cargarEmpleados(){
     this.empleadoService.listar()
     .subscribe({
       next:(respuesta)=>{
+        this.empleados = respuesta;
+        this.cdr.detectChanges();
         this.empleados = respuesta;
       },
       error:(error)=>{
@@ -37,6 +40,42 @@ export class EmpleadosListComponent implements OnInit {
         );
       }
     });
+  }
+
+  editarEmpleado(empleado: Empleado) {
+
+    console.log("Editar", empleado);
+
+    // Más adelante:
+    // this.router.navigate(['/empleados/editar', empleado.id]);
+
+  }
+
+  eliminarEmpleado(id: number) {
+
+    const confirmar = confirm("¿Deseas eliminar este empleado?");
+
+    if (!confirmar) {
+      return;
+    }
+
+    this.empleadoService.eliminar(id)
+      .subscribe({
+
+        next: () => {
+
+          this.cargarEmpleados();
+
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+        }
+
+      });
+
   }
 
 }
