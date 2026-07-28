@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Empleado } from '../models/empleado.model';
 import { environment } from '../../../../environment';
+import { Estadisticas } from '../interfaces/empleado';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,27 @@ export class EmpleadoService {
 
   private api = `${environment.apiUrl}/empleados`;
 
+  private apiEstadisticas = `${environment.apiUrl}/estadisticas`;
+
+
   listar(): Observable<Empleado[]> {
     return this.http.get<Empleado[]>(this.api);
   }
 
+
+  obtenerEstadisticas(): Observable<Estadisticas> {
+
+    return this.http.get<Estadisticas>(
+      this.apiEstadisticas
+    );
+
+  }
+
+
   obtenerPorId(id: number): Observable<Empleado> {
     return this.http.get<Empleado>(`${this.api}/${id}`);
   }
+
 
   crear(empleado: Empleado): Observable<Empleado> {
     return this.http.post<Empleado>(
@@ -29,17 +44,23 @@ export class EmpleadoService {
     );
   }
 
-  actualizar(id: number, empleado: Empleado): Observable<Empleado> {
+
+  actualizar(id:number, empleado:Empleado):Observable<Empleado>{
+
     return this.http.put<Empleado>(
       `${this.api}/${id}`,
       empleado
     );
+
   }
 
-  eliminar(id: number): Observable<void> {
+
+  eliminar(id:number):Observable<void>{
+
     return this.http.delete<void>(
       `${this.api}/${id}`
     );
+
   }
 
 }

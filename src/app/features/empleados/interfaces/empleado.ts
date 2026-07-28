@@ -19,3 +19,19 @@ export interface Empleado {
     fechaIngreso: string;
 
 }
+
+export interface Estadisticas {
+
+  total: number;
+
+  activos: number;
+
+  inactivos: number;
+
+  salario_promedio: number;
+
+  salario_maximo: number;
+
+  salario_minimo: number;
+
+}

@@ -1,9 +1,11 @@
 <div class="min-h-screen bg-gray-100 p-8">
 
+
   <!-- Encabezado -->
   <div class="bg-white rounded-xl shadow-md p-6 mb-6 flex justify-between items-center">
 
     <div>
+
       <h1 class="text-3xl font-bold text-slate-700">
         Sistema de Administración de Empleados
       </h1>
@@ -11,46 +13,143 @@
       <p class="text-gray-500 mt-2">
         Administra, consulta y registra empleados de forma sencilla.
       </p>
+
     </div>
 
   </div>
 
-  <!-- Tarjetas resumen -->
+
+
+  <!-- Tarjetas resumen empleados -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
 
+
+    <!-- Total -->
     <div class="bg-white rounded-xl shadow p-5">
+
       <p class="text-gray-500 text-sm">
         Total de empleados
       </p>
+
       <h2 class="text-4xl font-bold text-slate-700 mt-2">
-        {{ empleados.length }}
+        {{ estadisticas?.total ?? 0 }}
       </h2>
+
     </div>
 
+
+
+    <!-- Activos -->
     <div class="bg-white rounded-xl shadow p-5">
+
       <p class="text-gray-500 text-sm">
         Empleados activos
       </p>
 
       <h2 class="text-4xl font-bold text-green-600 mt-2">
-        {{ empleados.filter(e => e.activo).length }}
+        {{ estadisticas?.activos ?? 0 }}
       </h2>
+
     </div>
 
+
+
+    <!-- Inactivos -->
     <div class="bg-white rounded-xl shadow p-5">
+
       <p class="text-gray-500 text-sm">
         Empleados inactivos
       </p>
 
-      <h2 class="text-4xl font-bold text-slate-700 mt-2">
-        {{ empleados.filter(e => !e.activo).length }}
+      <h2 class="text-4xl font-bold text-red-600 mt-2">
+        {{ estadisticas?.inactivos ?? 0 }}
       </h2>
+
     </div>
+
 
   </div>
 
+
+
+
+
+  <!-- Estadísticas salariales -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+
+
+    <!-- Promedio -->
+    <div class="bg-white rounded-xl shadow p-5">
+
+
+      <p class="text-gray-500 text-sm">
+        Salario promedio
+      </p>
+
+
+      <h2 class="text-3xl font-bold text-blue-600 mt-2">
+
+        {{ estadisticas?.salario_promedio ?? 0 | currency }}
+
+      </h2>
+
+
+    </div>
+
+
+
+
+    <!-- Máximo -->
+    <div class="bg-white rounded-xl shadow p-5">
+
+
+      <p class="text-gray-500 text-sm">
+        Salario máximo
+      </p>
+
+
+      <h2 class="text-3xl font-bold text-green-600 mt-2">
+
+        {{ estadisticas?.salario_maximo ?? 0 | currency }}
+
+      </h2>
+
+
+    </div>
+
+
+
+
+
+    <!-- Mínimo -->
+    <div class="bg-white rounded-xl shadow p-5">
+
+
+      <p class="text-gray-500 text-sm">
+        Salario mínimo
+      </p>
+
+
+      <h2 class="text-3xl font-bold text-slate-700 mt-2">
+
+        {{ estadisticas?.salario_minimo ?? 0 | currency }}
+
+      </h2>
+
+
+    </div>
+
+
+  </div>
+
+
+
+
+
+
   <!-- Barra de herramientas -->
   <div class="bg-white rounded-xl shadow p-5 mb-6 flex flex-col md:flex-row gap-4 justify-between">
+
 
     <input
       type="text"
@@ -59,67 +158,139 @@
       placeholder="Buscar empleado..."
       class="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-80 focus:outline-none focus:ring-2 focus:ring-red-600">
 
+
+
     <div class="flex gap-3">
+
 
       <button
         class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg">
+
         Filtrar
+
       </button>
+
+
 
       <button
         class="bg-slate-700 hover:bg-slate-800 text-white px-4 py-2 rounded-lg">
+
         Exportar
+
       </button>
+
 
     </div>
 
+
   </div>
 
-  <!-- Tabla -->
+
+
+
+
+
+  <!-- Tabla empleados -->
   <div class="bg-white rounded-xl shadow-md p-6">
+
+
     <app-empleado-table
         [empleados]="empleadosPagina"
         (editar)="editarEmpleado($event)"
         (eliminar)="eliminarEmpleado($event)">
     </app-empleado-table>
 
+
+
+
+
+    <!-- Paginación -->
     <div class="mt-6 flex flex-col items-center justify-between gap-3 md:flex-row">
+
+
       <p class="text-sm text-slate-500">
-        Mostrando {{ empleadosPagina.length }} de {{ empleadosFiltrados.length }} resultados
+
+        Mostrando 
+        {{ empleadosPagina.length }}
+        de
+        {{ empleadosFiltrados.length }}
+        resultados
+
       </p>
+
+
+
+
+
       <div class="flex items-center gap-2">
+
+
         <button
           type="button"
           (click)="cambiarPagina(paginaActual - 1)"
           [disabled]="paginaActual === 1"
-          class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-600 disabled:cursor-not-allowed disabled:opacity-50"
-        >
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-600 disabled:cursor-not-allowed disabled:opacity-50">
+
           Anterior
+
         </button>
+
+
+
+
+
         @for (pagina of [].constructor(totalPaginas); track $index) {
+
+
           <button
+
             type="button"
+
             (click)="cambiarPagina($index + 1)"
+
             class="h-9 w-9 rounded-lg border text-sm font-semibold"
+
             [class.border-red-500]="paginaActual === $index + 1"
+
             [class.bg-red-600]="paginaActual === $index + 1"
+
             [class.text-white]="paginaActual === $index + 1"
+
             [class.border-slate-300]="paginaActual !== $index + 1"
-            [class.text-slate-600]="paginaActual !== $index + 1"
-          >
+
+            [class.text-slate-600]="paginaActual !== $index + 1">
+
             {{ $index + 1 }}
+
           </button>
+
+
         }
+
+
+
+
+
         <button
           type="button"
           (click)="cambiarPagina(paginaActual + 1)"
           [disabled]="paginaActual === totalPaginas"
-          class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-600 disabled:cursor-not-allowed disabled:opacity-50"
-        >
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-600 disabled:cursor-not-allowed disabled:opacity-50">
+
           Siguiente
+
         </button>
+
+
+
       </div>
+
+
     </div>
+
+
   </div>
+
+
 
 </div>
