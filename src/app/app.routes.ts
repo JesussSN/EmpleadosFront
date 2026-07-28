@@ -4,6 +4,7 @@ import { Layout } from './layout/layout';
 import { Dashboard } from './features/empleados/pages/dashboard/dashboard';
 import { EmpleadosListComponent } from './features/empleados/pages/empleados-list/empleados-list';
 import { EmpleadoForm } from './features/empleados/pages/empleado-form/empleado-form';
+import { EstadisticasPageComponent } from './features/empleados/pages/estadisticas-page/estadisticas-page';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,10 @@ export const routes: Routes = [
       {
         path: 'empleados/editar/:id',
         component: EmpleadoForm
+      },
+      {
+        path: 'estadisticas',
+        component: EstadisticasPageComponent
       }
     ]
   },

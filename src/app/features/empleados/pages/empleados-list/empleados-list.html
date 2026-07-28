@@ -20,132 +20,19 @@
 
 
 
-  <!-- Tarjetas resumen empleados -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
-
-
-    <!-- Total -->
-    <div class="bg-white rounded-xl shadow p-5">
-
-      <p class="text-gray-500 text-sm">
-        Total de empleados
-      </p>
-
-      <h2 class="text-4xl font-bold text-slate-700 mt-2">
-        {{ estadisticas?.total ?? 0 }}
-      </h2>
-
+  <div class="bg-white rounded-xl shadow-md p-6 mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
+    <div>
+      <h2 class="text-xl font-bold text-slate-700">Estadísticas</h2>
+      <p class="text-gray-500">Consulta los indicadores y reportes del estado de los empleados.</p>
     </div>
 
-
-
-    <!-- Activos -->
-    <div class="bg-white rounded-xl shadow p-5">
-
-      <p class="text-gray-500 text-sm">
-        Empleados activos
-      </p>
-
-      <h2 class="text-4xl font-bold text-green-600 mt-2">
-        {{ estadisticas?.activos ?? 0 }}
-      </h2>
-
-    </div>
-
-
-
-    <!-- Inactivos -->
-    <div class="bg-white rounded-xl shadow p-5">
-
-      <p class="text-gray-500 text-sm">
-        Empleados inactivos
-      </p>
-
-      <h2 class="text-4xl font-bold text-red-600 mt-2">
-        {{ estadisticas?.inactivos ?? 0 }}
-      </h2>
-
-    </div>
-
-
+    <button
+      type="button"
+      (click)="irAEstadisticas()"
+      class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow">
+      📊 Ver estadísticas
+    </button>
   </div>
-
-
-
-
-
-  <!-- Estadísticas salariales -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
-
-
-    <!-- Promedio -->
-    <div class="bg-white rounded-xl shadow p-5">
-
-
-      <p class="text-gray-500 text-sm">
-        Salario promedio
-      </p>
-
-
-      <h2 class="text-3xl font-bold text-blue-600 mt-2">
-
-        {{ estadisticas?.salario_promedio ?? 0 | currency }}
-
-      </h2>
-
-
-    </div>
-
-
-
-
-    <!-- Máximo -->
-    <div class="bg-white rounded-xl shadow p-5">
-
-
-      <p class="text-gray-500 text-sm">
-        Salario máximo
-      </p>
-
-
-      <h2 class="text-3xl font-bold text-green-600 mt-2">
-
-        {{ estadisticas?.salario_maximo ?? 0 | currency }}
-
-      </h2>
-
-
-    </div>
-
-
-
-
-
-    <!-- Mínimo -->
-    <div class="bg-white rounded-xl shadow p-5">
-
-
-      <p class="text-gray-500 text-sm">
-        Salario mínimo
-      </p>
-
-
-      <h2 class="text-3xl font-bold text-slate-700 mt-2">
-
-        {{ estadisticas?.salario_minimo ?? 0 | currency }}
-
-      </h2>
-
-
-    </div>
-
-
-  </div>
-
-
-
-
-
 
   <!-- Barra de herramientas -->
   <div class="bg-white rounded-xl shadow p-5 mb-6 flex flex-col md:flex-row gap-4 justify-between">

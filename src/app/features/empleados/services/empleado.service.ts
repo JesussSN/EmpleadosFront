@@ -63,4 +63,11 @@ export class EmpleadoService {
 
   }
 
+  obtenerGrafica(): Observable<Blob> {
+    return this.http.get(`${environment.apiUrl}/grafica/empleados`, {
+      responseType: 'blob'
+    });
+  }
+
 }
+

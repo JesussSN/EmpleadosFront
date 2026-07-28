@@ -6,15 +6,12 @@ import { EmpleadoService } from '../../services/empleado.service';
 import { Empleado } from '../../models/empleado.model';
 
 import { EmpleadoTableComponent } from '../../components/empleado-table/empleado-table';
-import { Estadisticas } from '../../interfaces/empleado';
-import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-empleados-list',
   standalone: true,
   imports: [
-    EmpleadoTableComponent,
-    CurrencyPipe
+    EmpleadoTableComponent
   ],
   templateUrl: './empleados-list.html',
   styleUrl: './empleados-list.css'
@@ -24,15 +21,12 @@ export class EmpleadosListComponent implements OnInit {
   private empleadoService = inject(EmpleadoService);
   private router = inject(Router);
   empleados: Empleado[] = [];
-  estadisticas!: Estadisticas;
   busqueda = '';
   paginaActual = 1;
   tamanoPagina = 2;
 
   ngOnInit(): void {
     this.cargarEmpleados();
-    this.cargarEstadisticas();
-
   }
 
   private cdr = inject(ChangeDetectorRef);
@@ -94,6 +88,10 @@ export class EmpleadosListComponent implements OnInit {
     this.router.navigate(['/empleados/editar', empleado.id]);
   }
 
+  irAEstadisticas(): void {
+    this.router.navigate(['/estadisticas']);
+  }
+
   eliminarEmpleado(id: number) {
 
     const confirmar = confirm("¿Deseas eliminar este empleado?");
@@ -120,31 +118,5 @@ export class EmpleadosListComponent implements OnInit {
       });
 
   }
-
-  cargarEstadisticas(): void {
-
-  this.empleadoService.obtenerEstadisticas()
-  .subscribe({
-
-    next:(respuesta)=>{
-
-      this.estadisticas = respuesta;
-
-      this.cdr.detectChanges();
-
-    },
-
-    error:(error)=>{
-
-      console.error(
-        "Error cargando estadísticas",
-        error
-      );
-
-    }
-
-  });
-
-}
 
 }
