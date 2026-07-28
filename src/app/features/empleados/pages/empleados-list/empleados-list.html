@@ -54,6 +54,8 @@
 
     <input
       type="text"
+      [value]="busqueda"
+      (input)="onBusquedaChange($any($event.target).value)"
       placeholder="Buscar empleado..."
       class="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-80 focus:outline-none focus:ring-2 focus:ring-red-600">
 
@@ -76,10 +78,48 @@
   <!-- Tabla -->
   <div class="bg-white rounded-xl shadow-md p-6">
     <app-empleado-table
-        [empleados]="empleados"
+        [empleados]="empleadosPagina"
         (editar)="editarEmpleado($event)"
         (eliminar)="eliminarEmpleado($event)">
     </app-empleado-table>
+
+    <div class="mt-6 flex flex-col items-center justify-between gap-3 md:flex-row">
+      <p class="text-sm text-slate-500">
+        Mostrando {{ empleadosPagina.length }} de {{ empleadosFiltrados.length }} resultados
+      </p>
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          (click)="cambiarPagina(paginaActual - 1)"
+          [disabled]="paginaActual === 1"
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-600 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Anterior
+        </button>
+        @for (pagina of [].constructor(totalPaginas); track $index) {
+          <button
+            type="button"
+            (click)="cambiarPagina($index + 1)"
+            class="h-9 w-9 rounded-lg border text-sm font-semibold"
+            [class.border-red-500]="paginaActual === $index + 1"
+            [class.bg-red-600]="paginaActual === $index + 1"
+            [class.text-white]="paginaActual === $index + 1"
+            [class.border-slate-300]="paginaActual !== $index + 1"
+            [class.text-slate-600]="paginaActual !== $index + 1"
+          >
+            {{ $index + 1 }}
+          </button>
+        }
+        <button
+          type="button"
+          (click)="cambiarPagina(paginaActual + 1)"
+          [disabled]="paginaActual === totalPaginas"
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-600 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Siguiente
+        </button>
+      </div>
+    </div>
   </div>
 
 </div>

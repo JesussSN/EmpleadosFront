@@ -4,6 +4,7 @@
         Página principal
     </h1>
 
-    <app-carousel></app-carousel>
+    <app-carousel (clickBoton)="abrirResumen($event)"></app-carousel>
+    <app-conocer-mas [visible]="mostrarResumen" [tipo]="tipoResumen" (cerrado)="cerrarResumen()"></app-conocer-mas>
 
 </div>

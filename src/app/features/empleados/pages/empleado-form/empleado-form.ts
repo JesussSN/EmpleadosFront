@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EmpleadoService } from '../../services/empleado.service';
 
 @Component({
@@ -14,10 +14,14 @@ export class EmpleadoForm {
 
   empleadoForm!: FormGroup;
 
+  modoEdicion = false;
+  idEmpleado = 0;
+
   constructor(
     private fb: FormBuilder,
     private empleadoService: EmpleadoService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
 
     this.empleadoForm = this.fb.group({
@@ -60,16 +64,13 @@ export class EmpleadoForm {
 
   }
 
-  guardar() {
+ public guardar() {
+    if (this.empleadoForm.invalid) {
+      this.empleadoForm.markAllAsTouched();
+      return;
+    }
 
-  if (this.empleadoForm.invalid) {
-
-    this.empleadoForm.markAllAsTouched();
-    return;
-
-  }
-
-  this.empleadoService.crear(this.empleadoForm.value as any).subscribe({
+    this.empleadoService.crear(this.empleadoForm.value as any).subscribe({
           next: (respuesta) => {
             console.log(respuesta);
             alert('Empleado guardado correctamente');
@@ -80,8 +81,7 @@ export class EmpleadoForm {
             console.error(error);
             alert('Ocurrió un error al guardar.');
           }
-
-        });
+    });
 
   }
 

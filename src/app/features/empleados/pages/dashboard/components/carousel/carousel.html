@@ -18,6 +18,8 @@
         </p>
 
         <button
+            type="button"
+            (click)="activarBoton(slides[indice].tipo)"
             class="mt-8 w-44 bg-red-600 hover:bg-red-700 transition py-3 rounded-lg font-semibold">
 
             {{slides[indice].boton}}

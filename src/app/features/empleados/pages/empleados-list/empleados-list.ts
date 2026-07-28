@@ -18,20 +18,23 @@ import { EmpleadoTableComponent } from '../../components/empleado-table/empleado
 export class EmpleadosListComponent implements OnInit {
 
   private empleadoService = inject(EmpleadoService);
-  empleados:Empleado[] = [];
+  empleados: Empleado[] = [];
+  busqueda = '';
+  paginaActual = 1;
+  tamanoPagina = 3;
 
   ngOnInit(): void {
     this.cargarEmpleados();
   }
-private cdr = inject(ChangeDetectorRef);
 
-  cargarEmpleados(){
+  private cdr = inject(ChangeDetectorRef);
+
+  cargarEmpleados(): void {
     this.empleadoService.listar()
     .subscribe({
       next:(respuesta)=>{
         this.empleados = respuesta;
         this.cdr.detectChanges();
-        this.empleados = respuesta;
       },
       error:(error)=>{
         console.error(
@@ -40,6 +43,43 @@ private cdr = inject(ChangeDetectorRef);
         );
       }
     });
+  }
+
+  get empleadosFiltrados(): Empleado[] {
+    const texto = this.busqueda.trim().toLowerCase();
+
+    if (!texto) {
+      return this.empleados;
+    }
+
+    return this.empleados.filter((empleado) => {
+      return (
+        empleado.nombre.toLowerCase().includes(texto) ||
+        empleado.puesto.toLowerCase().includes(texto)
+      );
+    });
+  }
+
+  get totalPaginas(): number {
+    return Math.max(1, Math.ceil(this.empleadosFiltrados.length / this.tamanoPagina));
+  }
+
+  get empleadosPagina(): Empleado[] {
+    const inicio = (this.paginaActual - 1) * this.tamanoPagina;
+    return this.empleadosFiltrados.slice(inicio, inicio + this.tamanoPagina);
+  }
+
+  cambiarPagina(pagina: number): void {
+    if (pagina < 1 || pagina > this.totalPaginas) {
+      return;
+    }
+
+    this.paginaActual = pagina;
+  }
+
+  onBusquedaChange(valor: string): void {
+    this.busqueda = valor;
+    this.paginaActual = 1;
   }
 
   editarEmpleado(empleado: Empleado) {

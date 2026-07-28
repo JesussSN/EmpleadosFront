@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 
 
 interface Slide{
@@ -7,6 +7,7 @@ interface Slide{
   descripcion:string;
   imagen:string;
   boton:string;
+  tipo:'empresa' | 'servicios' | 'valores';
 
 }
 
@@ -20,6 +21,7 @@ interface Slide{
 })
 export class Carousel implements OnInit, OnDestroy {
 
+  @Output() clickBoton = new EventEmitter<'empresa' | 'servicios' | 'valores'>();
 
   indice = 0;
 
@@ -33,7 +35,8 @@ export class Carousel implements OnInit, OnDestroy {
       titulo:'Nuestro talento hace la diferencia',
       descripcion:'Impulsamos la innovación mediante equipos altamente capacitados.',
       imagen:'images/banner1.jpeg',
-      boton:'Conocer más'
+      boton:'Conocer más',
+      tipo:'empresa'
     },
 
 
@@ -41,7 +44,8 @@ export class Carousel implements OnInit, OnDestroy {
       titulo:'La tecnología transforma empresas',
       descripcion:'Desarrollamos soluciones modernas para crecer juntos.',
       imagen:'images/banner2.jpeg',
-      boton:'Ver servicios'
+      boton:'Ver servicios',
+      tipo:'servicios'
     },
 
 
@@ -49,7 +53,8 @@ export class Carousel implements OnInit, OnDestroy {
       titulo:'El éxito comienza con las personas',
       descripcion:'Nuestros colaboradores son el motor de la organización.',
       imagen:'images/banner3.jpeg',
-      boton:'Leer más'
+      boton:'Leer más',
+      tipo:'valores'
     }
 
   ];
@@ -88,6 +93,9 @@ export class Carousel implements OnInit, OnDestroy {
 
   }
 
+  activarBoton(tipo:'empresa' | 'servicios' | 'valores'): void {
+    this.clickBoton.emit(tipo);
+  }
 
 
   ngOnDestroy(){
