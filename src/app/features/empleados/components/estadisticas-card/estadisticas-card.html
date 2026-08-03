@@ -43,17 +43,58 @@
       <button
         type="button"
         (click)="generarGrafica()"
-        class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow">
-        📊 Generar gráfica
+        [disabled]="cargandoGrafica"
+        class="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white px-5 py-2 rounded-lg shadow">
+        {{ cargandoGrafica ? '⏳ Generando gráficas...' : '📊 Generar gráficas' }}
       </button>
     </div>
   </div>
 
-  @if (imagenGrafica) {
+  @if (graficaBarras || graficaPastel || graficaTopSalarios || graficaDistribucion || graficaEmpleadosPuesto || graficaPromedioPuesto) {
     <div class="bg-white rounded-xl shadow-md p-6 mb-6">
-      <h2 class="text-2xl font-bold text-slate-700 mb-4">Estado de los empleados</h2>
-      <div class="flex justify-center">
-        <img [src]="imagenGrafica" alt="Gráfica de empleados" class="rounded-lg border shadow-md max-w-full">
+      <h2 class="text-2xl font-bold text-slate-700 mb-6">Gráficas generadas</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        @if (graficaBarras) {
+          <div class="rounded-lg border p-4 bg-slate-50">
+            <h3 class="font-semibold text-slate-700 mb-3">Estado de los empleados</h3>
+            <img [src]="graficaBarras" alt="Gráfica de barras" class="rounded-lg border shadow-md max-w-full">
+          </div>
+        }
+
+        @if (graficaPastel) {
+          <div class="rounded-lg border p-4 bg-slate-50">
+            <h3 class="font-semibold text-slate-700 mb-3">Distribución por estado</h3>
+            <img [src]="graficaPastel" alt="Gráfica pastel" class="rounded-lg border shadow-md max-w-full">
+          </div>
+        }
+
+        @if (graficaTopSalarios) {
+          <div class="rounded-lg border p-4 bg-slate-50">
+            <h3 class="font-semibold text-slate-700 mb-3">Top 5 salarios</h3>
+            <img [src]="graficaTopSalarios" alt="Top 5 salarios" class="rounded-lg border shadow-md max-w-full">
+          </div>
+        }
+
+        @if (graficaDistribucion) {
+          <div class="rounded-lg border p-4 bg-slate-50">
+            <h3 class="font-semibold text-slate-700 mb-3">Distribución de salarios</h3>
+            <img [src]="graficaDistribucion" alt="Distribución de salarios" class="rounded-lg border shadow-md max-w-full">
+          </div>
+        }
+
+        @if (graficaEmpleadosPuesto) {
+          <div class="rounded-lg border p-4 bg-slate-50">
+            <h3 class="font-semibold text-slate-700 mb-3">Empleados por puesto</h3>
+            <img [src]="graficaEmpleadosPuesto" alt="Empleados por puesto" class="rounded-lg border shadow-md max-w-full">
+          </div>
+        }
+
+        @if (graficaPromedioPuesto) {
+          <div class="rounded-lg border p-4 bg-slate-50">
+            <h3 class="font-semibold text-slate-700 mb-3">Salario promedio por puesto</h3>
+            <img [src]="graficaPromedioPuesto" alt="Salario promedio por puesto" class="rounded-lg border shadow-md max-w-full">
+          </div>
+        }
       </div>
     </div>
   }

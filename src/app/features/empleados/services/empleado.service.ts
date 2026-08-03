@@ -69,5 +69,40 @@ export class EmpleadoService {
     });
   }
 
+  // Pastel
+  obtenerGraficaPastel(): Observable<Blob> {
+    return this.http.get(`${environment.apiUrl}/grafica/pastel`, {
+      responseType: 'blob'
+    });
+  }
+
+  // Top 5 salarios
+  obtenerGraficaTopSalarios(): Observable<Blob> {
+    return this.http.get(`${environment.apiUrl}/grafica/top-salarios`, {
+      responseType: 'blob'
+    });
+  }
+
+  // Histograma de salarios
+  obtenerGraficaDistribucionSalarios(): Observable<Blob> {
+    return this.http.get(`${environment.apiUrl}/grafica/distribucion-salarios`, {
+      responseType: 'blob'
+    });
+  }
+
+  // Empleados por puesto
+  obtenerGraficaEmpleadosPorPuesto(): Observable<Blob> {
+    return this.http.get(`${environment.apiUrl}/grafica/empleados-por-puesto`, {
+      responseType: 'blob'
+    });
+  }
+
+  // Salario promedio por puesto
+  obtenerGraficaPromedioPorPuesto(): Observable<Blob> {
+    return this.http.get(`${environment.apiUrl}/grafica/promedio-por-puesto`, {
+      responseType: 'blob'
+    });
+  }
+
 }
 
