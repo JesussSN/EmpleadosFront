@@ -32,39 +32,12 @@
 
 
     <div class="flex gap-3">
-
-
-      <button
-        class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg">
-
-        Filtrar
-
-      </button>
-
-
-
-      <button
-        class="bg-slate-700 hover:bg-slate-800 text-white px-4 py-2 rounded-lg">
-
-        Exportar
-
-      </button>
-
-
     </div>
-
-
   </div>
-
-
-
-
 
 
   <!-- Tabla empleados -->
   <div class="bg-white rounded-xl shadow-md p-6">
-
-
     <app-empleado-table
         [empleados]="empleadosPagina"
         (editar)="editarEmpleado($event)"

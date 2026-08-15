@@ -5,6 +5,7 @@ import { Dashboard } from './features/empleados/pages/dashboard/dashboard';
 import { EmpleadosListComponent } from './features/empleados/pages/empleados-list/empleados-list';
 import { EmpleadoForm } from './features/empleados/pages/empleado-form/empleado-form';
 import { EstadisticasPageComponent } from './features/empleados/pages/estadisticas-page/estadisticas-page';
+import { PuestosPageComponent } from './features/empleados/pages/puestos-page/puestos-page';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,10 @@ export const routes: Routes = [
       {
         path: 'estadisticas',
         component: EstadisticasPageComponent
+      },
+      {
+        path: 'puestos',
+        component: PuestosPageComponent
       }
     ]
   },

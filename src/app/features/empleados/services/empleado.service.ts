@@ -15,11 +15,25 @@ export class EmpleadoService {
 
   private api = `${environment.apiUrl}/empleados`;
 
+  private apiPuestos = `${environment.apiUrl}/puestos`;
+
   private apiEstadisticas = `${environment.apiUrl}/estadisticas`;
 
 
   listar(): Observable<Empleado[]> {
     return this.http.get<Empleado[]>(this.api);
+  }
+
+  listarPuestos(): Observable<Array<{ id: number; nombre: string }>> {
+    return this.http.get<Array<{ id: number; nombre: string }>>(this.apiPuestos);
+  }
+
+  crearPuesto(nombre: string): Observable<{ id: number; nombre: string }> {
+    return this.http.post<{ id: number; nombre: string }>(this.apiPuestos, { nombre });
+  }
+
+  eliminarPuesto(id: number): Observable<{ mensaje: string }> {
+    return this.http.delete<{ mensaje: string }>(`${this.apiPuestos}/${id}`);
   }
 
 

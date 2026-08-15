@@ -8,29 +8,28 @@
         <nav class="nav-menu" aria-label="Navegación principal">
             <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-item">
                 <span>🏠</span>
-                Dashboard
+                <span>Dashboard</span>
             </a>
             <a routerLink="/empleados" routerLinkActive="active" class="nav-item">
                 <span>👥</span>
-                Empleados
+                <span>Empleados</span>
             </a>
             <a routerLink="/empleados/nuevo" routerLinkActive="active" class="nav-item">
                 <span>➕</span>
-                Nuevo
+                <span>Nuevo</span>
+            </a>
+            <a routerLink="/puestos" routerLinkActive="active" class="nav-item">
+                <span>🧩</span>
+                <span>Puestos</span>
             </a>
             <a routerLink="/estadisticas" routerLinkActive="active" class="nav-item">
                 <span>📊</span>
-                Estadísticas
+                <span>Estadísticas</span>
             </a>
         </nav>
     </div>
 
     <div class="topbar__right">
-        <div class="search-box">
-            <span class="search-box__icon">⌕</span>
-            <input type="text" placeholder="Buscar empleado..." aria-label="Buscar empleado" />
-        </div>
-
         <button class="icon-button" aria-label="Notificaciones">
             <span>🔔</span>
             <span class="badge">3</span>
@@ -40,7 +39,7 @@
             <div class="avatar">J</div>
             <div class="user-card__info">
                 <strong>Jesús</strong>
-                <small>Administrador</small>
+                <small>Admin</small>
             </div>
         </div>
     </div>
