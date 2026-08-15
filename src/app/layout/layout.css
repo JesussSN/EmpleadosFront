@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.app-layout {
+  min-height: 100vh;
+  height: 100%;
+}
+
+.app-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  overflow: auto;
+}
+

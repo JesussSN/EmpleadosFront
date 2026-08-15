@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+:host > aside {
+  min-height: 100vh;
+  height: 100%;
+}
+
+aside {
+  position: sticky;
+  top: 0;
+}
