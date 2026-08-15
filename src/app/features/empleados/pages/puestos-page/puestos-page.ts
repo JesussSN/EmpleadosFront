@@ -119,5 +119,4 @@ export class PuestosPageComponent implements OnInit {
     });
 
   }
-
 }

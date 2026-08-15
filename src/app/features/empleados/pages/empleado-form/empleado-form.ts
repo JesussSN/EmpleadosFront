@@ -125,4 +125,76 @@ private cargarPuestos(): void {
     });
   }
 
+      // ==============================
+    // FORMATO DE TELÉFONO
+    // ==============================
+
+    formatearTelefono(valor: string): string {
+
+      const soloDigitos = valor
+        .replace(/\D/g, '')
+        .slice(0, 10);
+
+      if (soloDigitos.length <= 3) {
+        return soloDigitos;
+      }
+
+      if (soloDigitos.length <= 6) {
+        return `${soloDigitos.slice(0, 3)}-${soloDigitos.slice(3)}`;
+      }
+
+      if (soloDigitos.length <= 8) {
+        return `${soloDigitos.slice(0, 3)}-${soloDigitos.slice(3, 6)}-${soloDigitos.slice(6)}`;
+      }
+
+      return `${soloDigitos.slice(0, 3)}-${soloDigitos.slice(3, 6)}-${soloDigitos.slice(6, 8)}-${soloDigitos.slice(8, 10)}`;
+    }
+
+
+    alIngresarTelefono(evento: Event): void {
+
+      const input = evento.target as HTMLInputElement;
+
+      const formateado = this.formatearTelefono(input.value);
+
+      this.empleadoForm
+        .get('telefono')
+        ?.setValue(formateado, { emitEvent: false });
+
+    }
+
+
+    // ==============================
+    // FORMATO DE SALARIO
+    // ==============================
+
+    formatearSalario(valor: string | number): string {
+
+      if (valor === null || valor === undefined || valor === '') {
+        return '';
+      }
+
+      const soloNumeros = valor
+        .toString()
+        .replace(/\D/g, '');
+
+      if (!soloNumeros) {
+        return '';
+      }
+
+      return Number(soloNumeros).toLocaleString('en-US');
+    }
+
+
+    alIngresarSalario(evento: Event): void {
+
+      const input = evento.target as HTMLInputElement;
+
+      const formateado = this.formatearSalario(input.value);
+
+      this.empleadoForm
+        .get('salario')
+        ?.setValue(formateado, { emitEvent: false });
+
+    }
 }
