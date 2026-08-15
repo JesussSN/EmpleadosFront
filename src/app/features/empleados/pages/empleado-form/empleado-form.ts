@@ -104,27 +104,70 @@ private cargarPuestos(): void {
   }
 
   public guardar() {
-    if (this.empleadoForm.invalid) {
-      this.empleadoForm.markAllAsTouched();
-      return;
-    }
 
-    const empleado = this.empleadoForm.value as Empleado;
-    const peticion = this.modoEdicion
-      ? this.empleadoService.actualizar(this.idEmpleado, empleado)
-      : this.empleadoService.crear(empleado);
-
-    peticion.subscribe({
-      next: () => {
-        alert(this.modoEdicion ? 'Empleado actualizado correctamente' : 'Empleado guardado correctamente');
-        this.router.navigate(['/empleados']);
-      },
-      error: () => {
-        alert('Ocurrió un error al guardar el empleado.');
+      if (this.empleadoForm.invalid) {
+        this.empleadoForm.markAllAsTouched();
+        return;
       }
-    });
-  }
 
+      const datos = this.empleadoForm.value;
+
+      // Teléfono sin guiones
+      const telefonoLimpio = datos.telefono
+        ? datos.telefono.replace(/\D/g, '')
+        : '';
+
+      // Salario sin comas
+      const salarioLimpio = datos.salario
+        ? Number(datos.salario.toString().replace(/,/g, ''))
+        : 0;
+
+      const empleado: Empleado = {
+
+        ...datos,
+
+        telefono: telefonoLimpio,
+
+        salario: salarioLimpio
+
+      };
+
+      console.log('📤 Enviando al backend:', empleado);
+
+      const peticion = this.modoEdicion
+        ? this.empleadoService.actualizar(
+            this.idEmpleado,
+            empleado
+          )
+        : this.empleadoService.crear(
+            empleado
+          );
+
+      peticion.subscribe({
+
+        next: () => {
+
+          alert(
+            this.modoEdicion
+              ? 'Empleado actualizado correctamente'
+              : 'Empleado guardado correctamente'
+          );
+
+          this.router.navigate(['/empleados']);
+
+        },
+
+        error: (error) => {
+
+          console.error('❌ Error al guardar:', error);
+
+          alert('Ocurrió un error al guardar el empleado.');
+
+        }
+
+      });
+
+    }
       // ==============================
     // FORMATO DE TELÉFONO
     // ==============================
