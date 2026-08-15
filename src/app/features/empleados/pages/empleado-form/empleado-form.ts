@@ -17,6 +17,7 @@ export class EmpleadoForm implements OnInit {
 
   modoEdicion = false;
   idEmpleado = 0;
+  puestos: Array<{ id: number; nombre: string }> = [];
 
   constructor(
     private fb: FormBuilder,
@@ -40,19 +41,47 @@ export class EmpleadoForm implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const idParam = params.get('id');
 
-      if (idParam) {
-        this.idEmpleado = Number(idParam);
-        this.modoEdicion = true;
-        this.cargarEmpleado(this.idEmpleado);
-      } else {
-        this.modoEdicion = false;
-        this.idEmpleado = 0;
-      }
-    });
-  }
+  this.cargarPuestos();
+
+  this.route.paramMap.subscribe((params) => {
+
+    const idParam = params.get('id');
+
+    if (idParam) {
+
+      this.idEmpleado = Number(idParam);
+      this.modoEdicion = true;
+
+      this.cargarEmpleado(this.idEmpleado);
+
+    } else {
+
+      this.modoEdicion = false;
+      this.idEmpleado = 0;
+
+    }
+
+  });
+
+}
+
+private cargarPuestos(): void {
+
+  this.empleadoService.listarPuestos().subscribe({
+
+    next: (puestos) => {
+      this.puestos = puestos;
+    },
+
+    error: () => {
+      this.puestos = [];
+      alert('No se pudieron cargar los puestos.');
+    }
+
+  });
+
+}
 
   private cargarEmpleado(id: number): void {
     this.empleadoService.obtenerPorId(id).subscribe({
